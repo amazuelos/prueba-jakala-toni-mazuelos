@@ -7,6 +7,7 @@
 import Image from 'next/image';
 
 import type { Product } from '@/types/product.types';
+import goToArrow from '@/app/assets/icons/goToArrow.svg';
 
 interface ProductListProps {
   products: Product[];
@@ -49,7 +50,7 @@ export function ProductList({ products, onProductClick }: ProductListProps) {
                 <p data-testid="product-card-binomial-name" className="text-sm text-gray-500 italic">{product.binomialName}</p>
               </div>
               <Image
-                src="/goToArrow.svg"
+                src={goToArrow}
                 alt=""
                 width={20}
                 height={20}

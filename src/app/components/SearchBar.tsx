@@ -4,6 +4,8 @@
  * Input de búsqueda con icono de lupa integrado.
  */
 'use client';
+import Image from 'next/image';
+import search from '../assets/icons/search.svg';
 
 interface SearchBarProps {
   value: string;
@@ -14,20 +16,7 @@ interface SearchBarProps {
 export function SearchBar({ value, onChange, placeholder = 'Buscar...' }: SearchBarProps) {
   return (
     <div data-testid="search-bar" className="relative w-full max-w-md">
-      <svg
-        className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
-        />
-      </svg>
+      <Image src={search} alt="" width={16} height={16} className="absolute top-1/2 left-3 -translate-y-1/2 pointer-events-none" />
       <input
         data-testid="search-input"
         type="text"

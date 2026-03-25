@@ -78,7 +78,7 @@ export function ProductDetail({ product, onBack, isNew = false }: ProductDetailP
             </div>
           </div>
 
-          <button className="mt-8 w-full rounded-lg bg-green-600 py-3 text-center font-semibold text-white transition hover:bg-green-700">
+          <button className="mt-8 w-full rounded-full bg-[#7b3b5e] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#5e2d47] lg:w-auto">
             Añadir al carrito
           </button>
         </div>
