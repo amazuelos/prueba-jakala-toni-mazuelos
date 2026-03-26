@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ProductList } from '@/app/components/products/components/ProductList';
+import { ProductList } from '@/app/components/products/ProductList';
 import { productsMock } from './mocks/products';
 
 // Mock next/image to render a plain img

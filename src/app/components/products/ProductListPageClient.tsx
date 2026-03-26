@@ -12,7 +12,7 @@ import type { Product } from '@/types/product.types';
 import { productRoutes } from '@/domain/product/productRoutes';
 import { useSearch } from '@/app/hooks/useSearch';
 import { SearchBar } from '@/app/components/SearchBar';
-import { ProductList } from './components/ProductList';
+import { ProductList } from './ProductList';
 
 interface ProductListPageClientProps {
   products: Product[];

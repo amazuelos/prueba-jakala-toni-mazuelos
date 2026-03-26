@@ -60,13 +60,14 @@ describe('Product Detail', () => {
 });
 
 describe('Product Detail — Error handling', () => {
-  it('should show a 404 page when navigating to a non-existent product', () => {
-    cy.visit('/product/99999', { failOnStatusCode: false });
-    cy.contains('404').should('exist');
+  it('should show an error message when navigating to a non-existent product', () => {
+    cy.visit('/product/99999');
+    cy.contains('Producto no encontrado').should('exist');
+    cy.contains('El producto que buscas no existe o no está disponible').should('exist');
   });
 
-  it('should show a 404 page when the product id is invalid', () => {
-    cy.visit('/product/invalid-id', { failOnStatusCode: false });
-    cy.contains('404').should('exist');
+  it('should show an error message when the product id is invalid', () => {
+    cy.visit('/product/invalid-id');
+    cy.contains('Producto no encontrado').should('exist');
   });
 });

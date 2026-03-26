@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import { ProductService } from '@/domain/product/ProductService';
 import { ProductDetailPageClient } from './ProductDetailPageClient';
 
@@ -32,6 +31,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
     const product = await ProductService.getById(id);
     return <ProductDetailPageClient product={product} />;
   } catch {
-    notFound();
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <h2 className="text-2xl font-bold text-gray-800">Producto no encontrado</h2>
+        <p className="mt-2 text-gray-500">El producto que buscas no existe o no está disponible.</p>
+      </div>
+    );
   }
 }

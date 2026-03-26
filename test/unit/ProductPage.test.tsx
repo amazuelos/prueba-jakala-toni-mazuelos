@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen } from '@testing-library/react';
 import { productDetailMock } from './mocks/products';
 
 // Mock next/image
@@ -11,12 +12,7 @@ vi.mock('next/image', () => ({
 }));
 
 // Mock next/navigation
-const mockNotFound = vi.fn();
 vi.mock('next/navigation', () => ({
-  notFound: () => {
-    mockNotFound();
-    throw new Error('NEXT_NOT_FOUND');
-  },
   useRouter: () => ({ push: vi.fn() }),
 }));
 
@@ -39,27 +35,34 @@ describe('ProductPage', () => {
   it('renderiza el detalle cuando la API responde', async () => {
     mockGetById.mockResolvedValue(productDetailMock);
 
-    const { render, screen } = await import('@testing-library/react');
     const Component = await ProductPage({ params: Promise.resolve({ id: '1' }) });
     render(Component);
 
     expect(screen.getByTestId('product-detail')).toBeInTheDocument();
   });
 
-  it('llama a notFound cuando la API falla', async () => {
+  it('muestra mensaje de error cuando la API falla', async () => {
     mockGetById.mockRejectedValue(new Error('Not found'));
 
-    await expect(
-      ProductPage({ params: Promise.resolve({ id: '999' }) }),
-    ).rejects.toThrow('NEXT_NOT_FOUND');
+    const Component = await ProductPage({ params: Promise.resolve({ id: '999' }) });
+    render(Component);
 
-    expect(mockNotFound).toHaveBeenCalled();
+    expect(screen.getByText('Producto no encontrado')).toBeInTheDocument();
+    expect(screen.getByText('El producto que buscas no existe o no está disponible.')).toBeInTheDocument();
+  });
+
+  it('no renderiza el detalle cuando la API falla', async () => {
+    mockGetById.mockRejectedValue(new Error('500'));
+
+    const Component = await ProductPage({ params: Promise.resolve({ id: '999' }) });
+    render(Component);
+
+    expect(screen.queryByTestId('product-detail')).not.toBeInTheDocument();
   });
 
   it('pasa el id correcto al servicio', async () => {
     mockGetById.mockResolvedValue(productDetailMock);
 
-    const { render } = await import('@testing-library/react');
     const Component = await ProductPage({ params: Promise.resolve({ id: '42' }) });
     render(Component);
 

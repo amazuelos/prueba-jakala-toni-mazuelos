@@ -8,7 +8,7 @@
 import { useRouter } from 'next/navigation';
 
 import type { Product } from '@/types/product.types';
-import { ProductDetail } from '@/app/components/products/components/ProductDetail';
+import { ProductDetail } from '@/app/components/products/ProductDetail';
 
 interface ProductDetailPageClientProps {
   product: Product;
