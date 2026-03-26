@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { ProductService } from '@/domain/product/ProductService';
 import { ProductDetailPageClient } from './ProductDetailPageClient';
 
@@ -26,7 +27,11 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
-  const product = await ProductService.getById(id);
 
-  return <ProductDetailPageClient product={product} />;
+  try {
+    const product = await ProductService.getById(id);
+    return <ProductDetailPageClient product={product} />;
+  } catch {
+    notFound();
+  }
 }

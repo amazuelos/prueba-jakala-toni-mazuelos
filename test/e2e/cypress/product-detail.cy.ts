@@ -58,3 +58,15 @@ describe('Product Detail', () => {
     cy.get('[data-testid="product-list"]').should('exist');
   });
 });
+
+describe('Product Detail — Error handling', () => {
+  it('should show a 404 page when navigating to a non-existent product', () => {
+    cy.visit('/product/99999', { failOnStatusCode: false });
+    cy.contains('404').should('exist');
+  });
+
+  it('should show a 404 page when the product id is invalid', () => {
+    cy.visit('/product/invalid-id', { failOnStatusCode: false });
+    cy.contains('404').should('exist');
+  });
+});

@@ -61,4 +61,11 @@ describe('Product List', () => {
     cy.url().should('include', '/product/');
     cy.get('[data-testid="product-detail"]').should('exist');
   });
+
+  it('should show a no-results message when search has no matches', () => {
+    cy.get('[data-testid="search-input"]').type('xyznoexiste');
+    cy.get('[data-testid="product-card"]').should('not.exist');
+    cy.get('[data-testid="no-results"]').should('exist');
+    cy.get('[data-testid="no-results"]').should('contain.text', 'No se encontraron productos');
+  });
 });

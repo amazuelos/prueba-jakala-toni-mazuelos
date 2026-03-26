@@ -14,6 +14,11 @@ interface ProductListProps {
 export function ProductList({ products, onProductClick }: ProductListProps) {
   return (
     <div data-testid="product-list">
+      {products.length === 0 ? (
+        <p data-testid="no-results" className="py-16 text-center text-lg text-gray-500">
+          No se encontraron productos.
+        </p>
+      ) : (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
         {products.map((product, index) => (
           <div
@@ -56,6 +61,7 @@ export function ProductList({ products, onProductClick }: ProductListProps) {
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }

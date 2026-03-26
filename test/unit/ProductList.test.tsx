@@ -62,4 +62,15 @@ describe('ProductList', () => {
     await user.click(cards[0]);
     expect(onProductClick).toHaveBeenCalledWith(String(productsMock[0].id), true);
   });
+
+  it('muestra mensaje de "sin resultados" cuando no hay productos', () => {
+    renderComponent([]);
+    expect(screen.getByTestId('no-results')).toBeInTheDocument();
+    expect(screen.getByText('No se encontraron productos.')).toBeInTheDocument();
+  });
+
+  it('no muestra mensaje de "sin resultados" cuando hay productos', () => {
+    renderComponent();
+    expect(screen.queryByTestId('no-results')).not.toBeInTheDocument();
+  });
 });

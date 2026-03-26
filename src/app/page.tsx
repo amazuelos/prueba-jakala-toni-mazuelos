@@ -8,7 +8,15 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const products = await ProductService.getAll();
-
-  return <ProductListPageClient products={products} />;
+  try {
+    const products = await ProductService.getAll();
+    return <ProductListPageClient products={products} />;
+  } catch {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <h2 className="text-2xl font-bold text-gray-800">No se pudieron cargar los productos</h2>
+        <p className="mt-2 text-gray-500">Inténtalo de nuevo más tarde.</p>
+      </div>
+    );
+  }
 }
