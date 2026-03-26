@@ -5,11 +5,11 @@
  * Ensambla adapter + use cases y expone métodos directos.
  */
 import type { Product } from '../../types/product.types';
-import { ApiProductRepository } from '@/infrastructure/products/ApiProductRepository';
+import { ProductApiClient } from '@/infrastructure/products/ProductApiClient';
 import { GetAllProductsUseCase } from '@/application/products/GetAllProductsUseCase';
 import { GetProductByIdUseCase } from '@/application/products/GetProductByIdUseCase';
 
-const repository = new ApiProductRepository();
+const repository = new ProductApiClient();
 const getAllProducts = new GetAllProductsUseCase(repository);
 const getProductById = new GetProductByIdUseCase(repository);
 

@@ -47,7 +47,7 @@ GetProductByIdUseCase  →  repository.getById(id)
 
 ### `infrastructure/`
 - **httpClient**: Cliente HTTP genérico (fetch + env vars).
-- **Adapters**: Implementación concreta de los puertos (`ApiProductRepository`).
+- **Adapters**: Implementación concreta de los puertos (`ProductApiClient`).
 - **Endpoints**: Configuración de paths de la API.
 
 ### `app/`
@@ -68,7 +68,7 @@ Capa de presentación gestionada por Next.js App Router:
         ↓
   ProductRepository (port/interface)
         ↓
-  ApiProductRepository (adapter)
+  ProductApiClient (adapter)
         ↓
   httpClient → fetch() → API REST
 ```

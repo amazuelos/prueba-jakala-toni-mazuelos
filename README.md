@@ -21,7 +21,7 @@ src/
     http/
       httpClient.ts
     products/
-      ApiProductRepository.ts
+      ProductApiClient.ts
       productEndpoints.ts
   app/             ← Páginas Next.js (App Router) + componentes colocados
     layout.tsx                              ← Layout global (header)

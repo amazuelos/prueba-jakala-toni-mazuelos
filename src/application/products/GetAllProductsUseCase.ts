@@ -10,7 +10,12 @@ import type { ProductRepository } from '@/domain/product/ProductRepository';
 export class GetAllProductsUseCase {
   constructor(private readonly repository: ProductRepository) {}
 
-  execute(): Promise<Product[]> {
-    return this.repository.getAll();
+  async execute(): Promise<Product[]> {
+    try {
+      return await this.repository.getAll();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Error desconocido';
+      throw new Error(`GetAllProductsUseCase: ${message}`);
+    }
   }
 }

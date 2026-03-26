@@ -10,7 +10,12 @@ import type { ProductRepository } from '@/domain/product/ProductRepository';
 export class GetProductByIdUseCase {
   constructor(private readonly repository: ProductRepository) {}
 
-  execute(id: string): Promise<Product> {
-    return this.repository.getById(id);
+  async execute(id: string): Promise<Product> {
+    try {
+      return await this.repository.getById(id);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Error desconocido';
+      throw new Error(`GetProductByIdUseCase(${id}): ${message}`);
+    }
   }
 }

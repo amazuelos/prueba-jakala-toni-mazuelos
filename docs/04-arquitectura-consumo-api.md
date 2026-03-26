@@ -10,7 +10,7 @@ Page (Server Component)
   → ProductService (facade)
     → UseCase (aplicación)
       → ProductRepository port (dominio)
-        → ApiProductRepository (infraestructura)
+        → ProductApiClient (infraestructura)
           → httpClient → fetch → API REST
 ```
 
@@ -59,7 +59,7 @@ export interface ProductRepository {
 **ProductService** (facade):
 
 ```ts
-const repository = new ApiProductRepository();
+const repository = new ProductApiClient();
 const getAllProducts = new GetAllProductsUseCase(repository);
 const getProductById = new GetProductByIdUseCase(repository);
 
@@ -99,7 +99,7 @@ export class GetAllProductsUseCase {
 |---------|-----|
 | `http/httpClient.ts` | Cliente HTTP genérico (wrapper de `fetch`) |
 | `products/productEndpoints.ts` | Paths de la API para productos |
-| `products/ApiProductRepository.ts` | **Adapter** — implementación concreta del puerto |
+| `products/ProductApiClient.ts` | **Adapter** — implementación concreta del puerto |
 
 **httpClient**:
 
@@ -130,10 +130,10 @@ export const productEndpoints = {
 
 Centraliza los paths para evitar strings dispersos por el código.
 
-**ApiProductRepository** (adapter):
+**ProductApiClient** (adapter):
 
 ```ts
-export class ApiProductRepository implements ProductRepository {
+export class ProductApiClient implements ProductRepository {
   async getAll(): Promise<Product[]> {
     return get<Product[]>(productEndpoints.getAll);
   }
@@ -216,7 +216,7 @@ src/infrastructure/
   ├── http/httpClient.ts            ← cliente HTTP genérico
   └── products/
       ├── productEndpoints.ts       ← paths de la API
-      └── ApiProductRepository.ts   ← adapter (implementa el puerto)
+      └── ProductApiClient.ts   ← adapter (implementa el puerto)
         ↑
 src/app/
   ├── page.tsx                      ← Server Component → ProductService.getAll()
