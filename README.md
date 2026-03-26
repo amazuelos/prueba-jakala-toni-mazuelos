@@ -74,3 +74,6 @@ cp .env.example .env.local
 - **Tailwind CSS v4** — Estilos utility-first
 - **Vitest** — Tests unitarios con Testing Library
 - **Cypress** — Tests E2E
+
+
+### PUBLIC URL: https://dulces-petalos-sandy.vercel.app/
